@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using UrlShortner.Components;
 using UrlShortner.Data;
+using UrlShortner.Repository;
+using UrlShortner.UrlHelpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContext<AppDbContext>(option => 
 option.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
 
+builder.Services.AddScoped<IUrlRepository, UrlRepository>();
+builder.Services.AddScoped<IUrlHelper, UrlHelper>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
